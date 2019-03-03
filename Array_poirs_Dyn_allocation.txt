@@ -1,0 +1,46 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int *applyAll(size_t size1, int array1[], size_t size2, int array2[]);
+void print(size_t size, int array[]);            //array je vlastne adresa na 0ty prvy v arrayi preto sa nepouživaju * &
+
+
+int main() {
+
+	int *velkePole;
+	int array1[]{ 1,2, 3, 4, 5 };
+	int array2[]{ 10,20,30 };
+
+	velkePole = applyAll(5, array1, 3, array2);
+	print(15, velkePole);
+
+	return 0;
+}
+
+int * applyAll(size_t size1, int array1[], size_t size2, int array2[])
+{
+	int pom{ 0 };
+	int *novePole{ nullptr };
+	novePole = new int[(size1 * size2)];         //dynamicka alokacia pamäte pre nove pole v ktore je o velkosti [arr1_size   *   arr2_size]
+
+	for (size_t a1 = 0; a1 < size1; a1++)
+	{
+		for (size_t a2 = 0; a2 < size2; a2++)
+		{
+			*(novePole + pom) = *(array1 + a1) * (array2[a2]);        // 1 sposob, alebo druhy sposob
+			pom++;
+		}
+	}
+
+	return novePole;
+}
+
+void print(size_t size, int array[])
+{
+	for (size_t i = 0; i < size; i++)
+	{
+		cout << array[i] << " ";
+	}
+}
